@@ -15,11 +15,11 @@ os:
 
 before_install:
  # OS X
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; brew update
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; brew outdated castxml || brew upgrade castxml
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew outdated castxml || brew upgrade castxml; fi
   # Linux
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; sudo apt-get update -qq
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; sudo apt-get install -qq gccxml
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update -qq; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -qq gccxml; fi
 
   # Install pep8, needed by the unit tests
   - pip install pep8
