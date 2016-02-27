@@ -9,12 +9,21 @@ python:
   - "3.4"
   - "3.5"
 
+os:
+  - linux
+  - osx
+
 before_install:
-  # Install gccxml
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq gccxml
+ # OS X
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; brew update
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; brew outdated castxml || brew upgrade castxml
+  # Linux
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; sudo apt-get update -qq
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; sudo apt-get install -qq gccxml
+
   # Install pep8, needed by the unit tests
   - pip install pep8
+
   # Install coverage tools (On 3.2 the new coverage is broken, use an old one)
   # https://github.com/menegazzo/travispy/issues/20
   - if [ $TRAVIS_PYTHON_VERSION == 3.2 ];
@@ -27,6 +36,8 @@ install:
   - if [[ $TRAVIS_PYTHON_VERSION == 2.6 ]]; then pip install unittest2; fi
 
 script:
+  - echo $TRAVIS_OS_NAME
+
   # Modify sitecustomize.py file for coverage. Allows to cover files run in a subprocess.
   - touch "/home/travis/virtualenv/python${TRAVIS_PYTHON_VERSION}/lib/python${TRAVIS_PYTHON_VERSION}/sitecustomize.py"
   - printf "import coverage\ncoverage.process_startup()\n" > "/home/travis/virtualenv/python${TRAVIS_PYTHON_VERSION}/lib/python${TRAVIS_PYTHON_VERSION}/sitecustomize.py"
