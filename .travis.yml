@@ -16,8 +16,10 @@ matrix:
     - os: linux
       python: 3.5
     - os: osx
+      language: generic
       env: TRAVIS_PYTHON_VERSION="2"
     - os: osx
+      language: generic
       env: TRAVIS_PYTHON_VERSION="3"
 
 
