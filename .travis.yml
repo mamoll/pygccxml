@@ -56,6 +56,7 @@ install:
 
 script:
   - echo $TRAVIS_OS_NAME
+  - sysctl -n machdep.cpu.brand_string
 
   # Modify sitecustomize.py file for coverage. Allows to cover files run in a subprocess.
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then touch "/home/travis/virtualenv/python${TRAVIS_PYTHON_VERSION}/lib/python${TRAVIS_PYTHON_VERSION}/sitecustomize.py"; fi
