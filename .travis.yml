@@ -3,18 +3,18 @@ language:
 
 matrix:
   include:
-    - os: linux
-      python: 2.6
-    - os: linux
-      python: 2.7
-    - os: linux
-      python: 3.2
-    - os: linux
-      python: 3.3
-    - os: linux
-      python: 3.4
-    - os: linux
-      python: 3.5
+    #- os: linux
+    #  python: 2.6
+    #- os: linux
+    #  python: 2.7
+    #- os: linux
+    #  python: 3.2
+    #- os: linux
+    #  python: 3.3
+    #- os: linux
+    #  python: 3.4
+    #- os: linux
+    #  python: 3.5
     - os: osx
       language: generic
       env: TRAVIS_PYTHON_VERSION="2"
@@ -67,6 +67,12 @@ script:
 
   # Install pygccxml
   - python setup.py install
+
+  # Test castxml
+  - which castxml
+  - which clang++
+  - castxml -c -x c++ --castxml-cc-gnu clang++ --castxml-gccxml -o test.xml unittests/data/core_types.hpp
+
   # Run the tests with coverage
   - coverage run unittests/test_all.py
   # Combine multiple .coverage files (we have multiple files because some scripts were run in a subprocess).
